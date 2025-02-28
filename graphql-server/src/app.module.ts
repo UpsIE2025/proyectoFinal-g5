@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { DemoResolver } from './demo.resolver';
+import { AuthModule } from './rest/auth/auth.module';
 
 @Module({
   imports: [
@@ -13,11 +14,12 @@ import { DemoResolver } from './demo.resolver';
       playground: true,
       autoSchemaFile: join(__dirname, 'schema.gql'),
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
     AppService
-    ,DemoResolver
+    , DemoResolver
   ],
 })
 export class AppModule { }
