@@ -1,0 +1,24 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: grpc
+  datasource:
+    url: jdbc:postgresql://localhost:5432/users
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+grpc:
+  server:
+    port: 9091
+
+logging:
+  level:
+    io.grpc: DEBUG
+    net.devh: DEBUG
