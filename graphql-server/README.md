@@ -25,10 +25,10 @@ El patrón de filtro permite la manipulación de los mensajes a lo largo de los 
 ### Filtros en NestJs
 
 ### Comparativa de filtros
-![Imagen 1](https://github.com/UpsIE2025/proyectoFinal-g5.git/graphql-server/images/Filtros_step.webp)
+![Imagen 1](https://github.com/UpsIE2025/proyectoFinal-g5.git/graphql-server/images/filtros-lifecycle.jpg)
 
 ### Ciclo de vida de los filtros
-![Imagen 2](https://github.com/UpsIE2025/proyectoFinal-g5.git/graphql-server/images/FitroS.webp)
+![Imagen 2](https://github.com/UpsIE2025/proyectoFinal-g5.git/graphql-server/images/filtros-nest.jpg)
 
 ## Conclusión
 El Filter Pattern es una herramienta poderosa para la creación de sistemas modulares y fáciles de mantener. En sistemas de integración como Apache Camel y Spring Integration, se usa para procesar mensajes de manera flexible y reutilizable. En Node.js, especialmente con Express.js y NestJS, los filtros como middlewares, pipes y guards permiten gestionar de manera eficiente el flujo de solicitudes HTTP. Al implementar estos filtros en las aplicaciones, se asegura un alto nivel de modularidad y control sobre el comportamiento de las solicitudes y respuestas.
