@@ -108,6 +108,103 @@ TrueNAS se puede utilizar en diversos escenarios dentro de una empresa, tales co
 
 ---
 
+## PROCESO DE INSTALACIÓN
+
+### 1. Página web oficial de TrueNAS
+
+![Página Web TrueNAS](./TrueNAS_images/webtrueNAS.png)
+
+### 2. Versiones de TrueNAS
+
+![Versiones TrueNAS](./TrueNAS_images/versionestrueNAS.png)
+
+### 3. Download imagen iso de TrueNAS
+
+![Download TrueNAS](./TrueNAS_images/downloadIsotrueNAS.png)
+
+### 4. Instalación en Workstation
+
+![Install TrueNAS](./TrueNAS_images/instalacionWorkstationtrueNAS.png)
+
+### 5. Instalación
+
+![Paso1 TrueNAS](./TrueNAS_images/paso01InstaciontrueNAS.png)
+
+### 6. Instalación
+
+![Paso2 TrueNAS](./TrueNAS_images/paso02InstaciontrueNAS.png)
+
+### 7. Instalación
+
+![Paso3 TrueNAS](./TrueNAS_images/paso03InstaciontrueNAS.png)
+
+### 8. Instalación
+
+![Paso4 TrueNAS](./TrueNAS_images/paso04InstaciontrueNAS.png)
+
+### 9. Instalación
+
+![Paso5 TrueNAS](./TrueNAS_images/paso05InstaciontrueNAS.png)
+
+### 10. Instalación
+
+![Paso6 TrueNAS](./TrueNAS_images/paso06InstaciontrueNAS.png)
+
+### 11. Instalación
+
+![Paso7 TrueNAS](./TrueNAS_images/paso07InstaciontrueNAS.png)
+
+### 12. Instalación
+
+![Paso8 TrueNAS](./TrueNAS_images/paso08InstaciontrueNAS.png)
+
+### 13. Instalación
+
+![Paso9 TrueNAS](./TrueNAS_images/paso09InstaciontrueNAS.png)
+
+### 14. Instalación
+
+![Paso10 TrueNAS](./TrueNAS_images/paso10InstaciontrueNAS.png)
+
+### 15. Final de instalación, pantalla de autenticación
+
+![Paso11 TrueNAS](./TrueNAS_images/paso11InstaciontrueNAS.png)
+
+### 16. Dashboard principal de TrueNAS
+
+![Dashboard01 TrueNAS](./TrueNAS_images/dashboard01trueNAS.png)
+
+### 17. Dashboard
+
+![Dashboard02 TrueNAS](./TrueNAS_images/dashboard02trueNAS.png)
+
+### 18. Dashboard
+
+![Dashboard03 TrueNAS](./TrueNAS_images/dashboard03trueNAS.png)
+
+### 19. Dashboard
+
+![Dashboard04 TrueNAS](./TrueNAS_images/dashboard04trueNAS.png)
+
+### 20. Dashboard
+
+![Dashboard05 TrueNAS](./TrueNAS_images/dashboard05trueNAS.png)
+
+### 21. Dashboard
+
+![Dashboard06 TrueNAS](./TrueNAS_images/dashboard06trueNAS.png)
+
+### 22. Dashboard
+
+![Dashboard07 TrueNAS](./TrueNAS_images/dashboard07trueNAS.png)
+
+### 23. Dashboard
+
+![Dashboard08 TrueNAS](./TrueNAS_images/dashboard08trueNAS.png)
+
+
+---
+
 ## Conclusiones
 
 - TrueNAS Community Edition es una excelente opción de almacenamiento de código abierto con grandes ventajas en entornos de pequeñas y medianas empresas.
