@@ -15,8 +15,8 @@ import { UsersModule } from './rest/users/users.module';
       playground: true,
       autoSchemaFile: join(__dirname, 'schema.gql'),
     }),
-    AuthModule,
-    UsersModule
+    AuthModule
+    , UsersModule
   ],
   controllers: [AppController],
   providers: [
