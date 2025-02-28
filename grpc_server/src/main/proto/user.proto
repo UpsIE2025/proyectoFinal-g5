@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.g5.grpc";
+option objc_class_prefix = "EX";
+
+package user;
+
+message UserRequest {
+    string name = 1;
+    string lastName = 2;
+    string email = 3;
+    string userName = 4;
+    string password = 5;
+}
+
+message UserNameRequest {
+    string userName = 1;
+}
+
+message UserResponse {
+    string id = 1;
+    string name = 2;
+    string lastName = 3;
+    string email = 4;
+    string userName = 5;
+    string password = 6;
+    string createdAt = 7;
+    string updateAt = 8;
+    string deleteAt = 9;
+}
+
+service UserService {
+    rpc CreateUser(UserRequest) returns (UserResponse);
+    rpc FindUserByUserName (UserNameRequest) returns (UserResponse);
+}
