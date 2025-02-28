@@ -6,7 +6,7 @@ import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { DemoResolver } from './demo.resolver';
 import { AuthModule } from './rest/auth/auth.module';
-import { UsersModule } from './rest/users/users.module';
+import { UsersModule } from './module/users/users.module';
 
 @Module({
   imports: [
