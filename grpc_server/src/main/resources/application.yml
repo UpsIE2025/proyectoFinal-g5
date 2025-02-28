@@ -5,9 +5,9 @@ spring:
   application:
     name: grpc
   datasource:
-    url: jdbc:postgresql://localhost:5432/users
-    username: admin
-    password: admin
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_NAME}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
