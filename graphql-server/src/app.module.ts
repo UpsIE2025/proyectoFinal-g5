@@ -6,6 +6,7 @@ import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { DemoResolver } from './demo.resolver';
 import { AuthModule } from './rest/auth/auth.module';
+import { UsersModule } from './rest/users/users.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AuthModule } from './rest/auth/auth.module';
       autoSchemaFile: join(__dirname, 'schema.gql'),
     }),
     AuthModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [

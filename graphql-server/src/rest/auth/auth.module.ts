@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 
 @Module({
-    providers:[AuthService, AuthGuard]
+    providers:[AuthService, AuthGuard],
+    exports:[AuthService, AuthGuard],
 })
 export class AuthModule {}
