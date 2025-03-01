@@ -7,6 +7,7 @@ import {faUser} from "@fortawesome/free-solid-svg-icons";
 import {LoadingButton} from "@mui/lab";
 import { useRouter } from 'next/navigation';
 import {RegisterServiceGraph} from "@/services/registerGraph.services";
+import {registrationValidationSchema} from "@/validations/login";
 
 export default  function RegisterForm(){
     const router = useRouter();
@@ -22,20 +23,20 @@ export default  function RegisterForm(){
     }
     return (
         <Formik
-            initialValues={{email:'',password:'', name:''}}
+            initialValues={{email:'', password:'', name:''}}
+            validationSchema={registrationValidationSchema}
             onSubmit={async (values, { setSubmitting }) => {
                 try {
                     await handleRegister(values);
-
                 } finally {
                     setSubmitting(false);
                 }
             }}
         >
-            {({values, errors, touched, handleChange, handleBlur,handleSubmit, isValid, isSubmitting}) => (
+            {({values, isValid, isSubmitting}) => (
                 <Form>
                     <Box>
-                        <CustomFormLabel htmlFor="name">Nombre Usuario</CustomFormLabel>
+                        <CustomFormLabel htmlFor="name">Nombre de usuario</CustomFormLabel>
                         <CustomField
                             id="name"
                             name="name"
@@ -78,7 +79,7 @@ export default  function RegisterForm(){
                         size="large"
                         fullWidth
                         type="submit"
-                        //disabled={!isValid || isSubmitting}
+                        disabled={!isValid || isSubmitting}
                     >
                         Registrar Usuario
                     </LoadingButton>

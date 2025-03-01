@@ -1,5 +1,3 @@
-
-
 export class RegisterServiceGraph{
     private static instance: RegisterServiceGraph;
 
@@ -14,15 +12,14 @@ export class RegisterServiceGraph{
 
     public async registerUser(values: { email: string; password: string; name: string }) {
         const mutation = `
-      mutation RegisterUser($name: String!, $email: String!, $password: String!) {
-        registerUser(name: $name, email: $email, password: $password) {
-          id
+      mutation create($name: String!, $email: String!, $password: String!) {
+        create(name: $name, email: $email, password: $password) {
           name
           email
+          password
         }
       }
     `;
-
         const variables = { ...values };
 
         const response = await fetch('http://localhost:8000', {
@@ -36,7 +33,6 @@ export class RegisterServiceGraph{
         if (!response.ok) {
             throw new Error(data.errors?.[0]?.message || 'Error al registrar usuario');
         }
-
         return data.data.registerUser;
     }
 }
