@@ -51,7 +51,6 @@ Gráficamente veremos el proyecto de la siguiente manera:
 
 ![Consumer Kafka](./kafka-images/EstructuraProyectoProducer.png)
 
-
 ### Casos de Uso
 
 *** Transmisión de eventos en tiempo real ***: Permite el envío continuo de datos a través de Kafka, garantizando que los consumidores procesen los mensajes en el orden recibido sin pérdida de información clave. Es ideal para aplicaciones que requieren eventos secuenciales, como monitoreo de sistemas y análisis en tiempo real.
