@@ -82,17 +82,17 @@ Apache Kafka es un sistema de mensajería distribuida basado en eventos. Su arqu
 
 ### Casos de Uso
 
-** Transmisión de eventos en tiempo real **: Permite el envío continuo de datos a través de Kafka, garantizando que los consumidores procesen los mensajes en el orden recibido sin pérdida de información clave. Es ideal para aplicaciones que requieren eventos secuenciales, como monitoreo de sistemas y análisis en tiempo real.
+**Transmisión de eventos en tiempo real**: Permite el envío continuo de datos a través de Kafka, garantizando que los consumidores procesen los mensajes en el orden recibido sin pérdida de información clave. Es ideal para aplicaciones que requieren eventos secuenciales, como monitoreo de sistemas y análisis en tiempo real.
 
-** Integración con sistemas distribuidos **: Facilita la comunicación entre microservicios al permitir que múltiples aplicaciones se suscriban y reaccionen a eventos en distintos puntos de una arquitectura distribuida. Esto mejora la escalabilidad y minimiza la dependencia entre servicios.
+**Integración con sistemas distribuidos**: Facilita la comunicación entre microservicios al permitir que múltiples aplicaciones se suscriban y reaccionen a eventos en distintos puntos de una arquitectura distribuida. Esto mejora la escalabilidad y minimiza la dependencia entre servicios.
 
-** Publicación de logs y métricas en microservicios **: Permite almacenar y analizar registros en tiempo real, asegurando que los eventos de diferentes servicios se capturen de forma ordenada. Esto es esencial para el monitoreo en entornos de producción, la detección de errores y el análisis de rendimiento.
+**Publicación de logs y métricas en microservicios**: Permite almacenar y analizar registros en tiempo real, asegurando que los eventos de diferentes servicios se capturen de forma ordenada. Esto es esencial para el monitoreo en entornos de producción, la detección de errores y el análisis de rendimiento.
 
 ### Comparación con RabbitMQ
 
 Kafka y RabbitMQ tienen enfoques distintos en la producción y distribución de mensajes:
 
-** Comparación entre Kafka y RabbitMQ **
+**Comparación entre Kafka y RabbitMQ**
 
 | Característica        | Apache Kafka                          | RabbitMQ                                |
 |----------------------|------------------------------------|----------------------------------------|
@@ -106,7 +106,7 @@ Kafka y RabbitMQ tienen enfoques distintos en la producción y distribución de 
 | **Tolerancia a Fallos** | Alta, con replicación de datos entre brokers | Moderada, con opciones de persistencia y confirmaciones de entrega |
 | **Reintentos y Confirmaciones** | Soporte nativo con offset de consumidor | Mecanismo de confirmación (ACK) configurable |
 
-** Diferencia clave **
+**Diferencia clave**
 
 Mientras que Kafka está diseñado para manejar flujos de eventos a gran escala y proporciona almacenamiento distribuido con replicación, RabbitMQ se centra en la mensajería orientada a colas para la comunicación eficiente entre servicios. La elección entre ambos depende del caso de uso: Kafka es ideal para procesamiento de eventos y big data, mientras que RabbitMQ es más adecuado para mensajería empresarial y comunicación entre microservicios.
 
