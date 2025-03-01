@@ -1,6 +1,5 @@
 'use client'
 import {Form, Formik} from "formik";
-import validation from "@/validations/login";
 import {Box} from "@mui/material";
 import CustomFormLabel from "@/components/form/custom-form-label";
 import CustomField from "@/components/form/custom-field";
@@ -24,7 +23,6 @@ export default  function RegisterForm(){
     return (
         <Formik
             initialValues={{email:'',password:'', name:''}}
-            validationSchema={validation}
             onSubmit={async (values, { setSubmitting }) => {
                 try {
                     await handleRegister(values);
