@@ -136,17 +136,18 @@ services:
       context: change-data-capture
     container_name: cdc
     environment:
-      - NODE_ENV=development
       - DB_HOST=mariadb
       - DB_PORT=3306
       - DB_USERNAME=root
       - DB_PASSWORD=IntegracionesEmp
       - DB_NAME=users
-      - PORT=3002
+      - PORT=80
       - KAFKA_HOST=kafka
       - KAFKA_PORT=9092
+      - KAFKA_GROUP_ID=cdc-group-id
+      - KAFKA_CDC_TOPIC=dbserver1.*
     ports:
-      - "3002:3002"
+      - "3002:80"
     depends_on:
       - mariadb
     networks:
