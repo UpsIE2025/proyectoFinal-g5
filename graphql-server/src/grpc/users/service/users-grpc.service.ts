@@ -28,7 +28,7 @@ export class UsersGrpcService implements OnModuleInit {
     const protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
 
     this.client = new (protoDescriptor as any).user.UserService(
-      'localhost:9090', // Dirección del servidor gRPC
+      'localhost:9091', // Dirección del servidor gRPC
       grpc.credentials.createInsecure()
     );
 
