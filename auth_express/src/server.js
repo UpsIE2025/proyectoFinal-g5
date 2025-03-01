@@ -14,7 +14,7 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.SESSION_SECRET,
-  baseURL: 'http://localhost:3001',
+  baseURL: process.env.AUTH0_BASE_URL,
   clientID: process.env.AUTH0_CLIENT_ID,
   issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
@@ -35,7 +35,6 @@ async function getManagementToken() {
 
     return response.data.access_token;
 }
-
 
 app.use(auth(config));
 
@@ -72,14 +71,11 @@ app.get('/', (req, res) => {
     res.send('Microservicio de autenticación funcionando');
 });
 
-
 app.post("/register", async (req, res) => {
     try {
       const { email, password, name } = req.body;
   
-      //const token = await getManagementToken();
-      const token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVsUnVkREF6WHdma2Rua3hHWXhSeSJ9.eyJpc3MiOiJodHRwczovL2Rldi14cm5mMGIzNm12Nm9rYzJ6LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJ1dDFUM1Q2Z3NwMHJPaG9aTUk5YjZ2S3pSZDJaVGt0MUBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9kZXYteHJuZjBiMzZtdjZva2Myei51cy5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTc0MDc3NTMzMywiZXhwIjoxNzQxMzYxNzMzLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMiLCJhenAiOiJ1dDFUM1Q2Z3NwMHJPaG9aTUk5YjZ2S3pSZDJaVGt0MSJ9.mYBEfPyN7ow8Ek9ijyl09_T8tDmAi05kMzhJX-wiy3hTFfdo5w954NPNkII0-0OjvCuopDe-LmoXiSChjPNvT1LV0yB1SFtWuHeKJ2Kt2mv58yQgxZ-TWGUCUHih67vvhq5CuOk8aj_qJlxwyLBqh01OgtFh4dHubva3_qsArrNPDNkhMtqXbZj6xHgb62pn3UVypEG2PQzXr9Tdeg-rv9Z4chSF5UM_HMqGlw5wwSPyEH3WAL-IOSKCcjzFFOEdeQobKEI90jPVsdGoaqgzqHJbenMrOQge6x4MRGKR9vcpt7wQjpB-ePfYHxkZ6ZES1l5LGVe8K7KLu1B_-QAYUg"
-        console.log("Token " + token);
+      const token = await getManagementToken();
       const response = await axios.post(
         `https://${process.env.AUTH0_DOMAIN}/api/v2/users`,
         {
@@ -99,10 +95,10 @@ app.post("/register", async (req, res) => {
     }
 });  
 
+
 app.post("/login", async (req, res) => {
     try {
       const { email, password } = req.body;
-  
       const response = await axios.post(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
         grant_type: "password",
         client_id: process.env.AUTH0_WEB_CLIENT_ID,
@@ -118,7 +114,6 @@ app.post("/login", async (req, res) => {
       res.status(400).json({ error: error.response.data });
     }
 });
-
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
