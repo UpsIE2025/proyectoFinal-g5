@@ -28,7 +28,8 @@ _(Detalles sobre el frontend, tecnologías utilizadas, framework, etc.)_
 
 #### GraphQL:
 
-- **Versión:** _(indicar versión)_
+- **Versión:** 16.10.0
+- **Apollo Server:** 3.13.0
 - **Puerto:** 4000
 
 ### Base de Datos
