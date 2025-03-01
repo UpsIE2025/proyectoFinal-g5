@@ -85,7 +85,7 @@ El API Gateway cumple funciones clave como:
 
 Crea un archivo `docker-compose.yml` y agrega la siguiente configuración:
 
-```yaml
+```yml
 version: '3.8'
 
 services:
@@ -109,11 +109,11 @@ services:
 networks:
   kong_network:
     driver: bridge
-
+```
 
 #### 1. Crear el archivo `kong.yml` y agrega la siguiente configuración:
 
-```yaml
+```yml
 _format_version: "3.0"
 
 services:
@@ -123,7 +123,7 @@ services:
       - name: mi-ruta
         paths:
           - /mi-ruta
-
+```
 ---
 
 📌 ¡Contribuye al proyecto y mejora la implementación de API Gateways en entornos
