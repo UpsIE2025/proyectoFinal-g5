@@ -51,6 +51,35 @@ Gráficamente veremos el proyecto de la siguiente manera:
 
 ![Consumer Kafka](./kafka-images/EstructuraProyectoProducer.png)
 
+### Arquitectura y Componentes Principales de Kafka 
+
+Apache Kafka es un sistema de mensajería distribuida basado en eventos. Su arquitectura se basa en los siguientes componentes clave:
+
+1. **Producer (Productor)**
+	- Es el servicio o aplicación que envía datos a Kafka.
+	- Publica mensajes en uno o más Topics.
+	- Puede distribuir los mensajes en diferentes Partitions para mejorar la escalabilidad y rendimiento.
+	
+2. **Broker**
+	- Es un nodo dentro del clúster de Kafka que almacena y distribuye mensajes..
+	- Un clúster de Kafka puede contener múltiples brokers para garantizar tolerancia a fallos y escalabilidad.
+	- Se encarga de replicar datos entre brokers para evitar la pérdida de información.
+	
+3. **Consumer (Consumidor)**
+	- Es el servicio o aplicación que lee los datos de Kafka.
+	- Se suscribe a uno o más Topics y procesa los mensajes en orden.
+	- Puede formar parte de un Consumer Group para distribuir la carga de trabajo entre múltiples instancias.
+	
+4. **Topic**
+	- Es la categoría o canal donde se publican los mensajes.
+	- Los datos enviados por los Producers se almacenan en un Topic, que es leído por los Consumers.
+	- Se puede dividir en múltiples Partitions para aumentar la paralelización del procesamiento de datos.
+	
+5. **Partitions**
+	- Cada Topic se divide en varias particiones para mejorar la escalabilidad y el procesamiento paralelo.
+	- Los mensajes en una partición son almacenados en orden y cada mensaje recibe un identificador único llamado offset.
+	- Los Consumers pueden leer desde cualquier offset, lo que permite el reprocesamiento de mensajes si es necesario.
+
 ### Casos de Uso
 
 *** Transmisión de eventos en tiempo real ***: Permite el envío continuo de datos a través de Kafka, garantizando que los consumidores procesen los mensajes en el orden recibido sin pérdida de información clave. Es ideal para aplicaciones que requieren eventos secuenciales, como monitoreo de sistemas y análisis en tiempo real.
@@ -63,15 +92,15 @@ Gráficamente veremos el proyecto de la siguiente manera:
 
 Kafka y RabbitMQ tienen enfoques distintos en la producción y distribución de mensajes:
 
-*** Kafka ***
+** Kafka **
 
 El productor envía mensajes a un topic, donde se almacenan de forma persistente y se consumen en el orden en que fueron publicados. Su arquitectura está optimizada para el manejo de grandes volúmenes de datos con baja latencia y alta tolerancia a fallos. Además, Kafka permite a múltiples consumidores leer los mismos mensajes sin afectar el rendimiento, lo que lo hace ideal para el procesamiento de eventos en streaming y la analítica en tiempo real.
 
-*** RabbitMQ ***
+** RabbitMQ **
 
 El productor envía mensajes a un exchange, que los distribuye a las colas según el tipo de intercambio configurado (direct, fanout, topic). RabbitMQ está diseñado para una entrega rápida y confiable de mensajes, pero no los almacena de forma persistente por defecto. Su enfoque es más adecuado para la comunicación transaccional entre servicios, donde la prioridad es la entrega inmediata de mensajes en arquitecturas de microservicios.
 
-*** Diferencias clave ***
+** Diferencias clave **
 
 Mientras que Kafka está diseñado para manejar flujos de eventos a gran escala y proporciona almacenamiento distribuido con replicación, RabbitMQ se centra en la mensajería orientada a colas para la comunicación eficiente entre servicios. La elección entre ambos depende del caso de uso: Kafka es ideal para procesamiento de eventos y big data, mientras que RabbitMQ es más adecuado para mensajería empresarial y comunicación entre microservicios.
 
