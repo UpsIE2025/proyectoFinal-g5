@@ -1,6 +1,9 @@
 import RequestType from '@/types/request.type';
 import { getParam } from '@/utils/local-storage';
 import { Response } from 'next/dist/compiled/@edge-runtime/primitives/fetch';
+import { useSelector } from 'react-redux';
+import { AppState } from '@/redux/store';
+
 
 // const host = 'http://localhost:8080/api/wedding-planner';
 const host = 'https://wedding.mssalazarb.dev/api/wedding-planner';
@@ -62,21 +65,28 @@ const validateResponse = async (response: Response) => {
 
 export const get = async ({ url, params, type = 'json' }: RequestType) => {
   const queryParams = new URLSearchParams(params);
-
+  const token = useSelector((state: AppState) => state.token.accesToken);
   const response = await fetch(`${host}${url}?${queryParams}`, {
     credentials: 'omit',
     method: 'GET',
-    headers: buildHeaders(type),
+    headers: {
+      ...buildHeaders(type),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
   });
 
   return validateResponse(response);
 };
 
 export const post = async ({ url, body, type = 'json' }: RequestType) => {
+  const token = useSelector((state: AppState) => state.token.accesToken);
   const response = await fetch(`${host}${url}`, {
     credentials: 'omit',
     method: 'POST',
-    headers: buildHeaders(type),
+    headers: {
+      ...buildHeaders(type),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
     body: buildPayload(type, body),
   });
 
