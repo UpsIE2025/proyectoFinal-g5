@@ -1,6 +1,0 @@
-ssh_key_name = "ec2_key"
-ssh_pem_name = "deploy_ec2_key.pem"
-ubuntu_ami = "ami-053b0d53c279acc90"
-ec2_instance_type = "t2.micro"
-public_subnet_name = "PublicSubnet1"
-vpc_name = "integrations_vpc"
