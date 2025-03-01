@@ -72,4 +72,58 @@ El API Gateway cumple funciones clave como:
 
 ---
 
+## Instalación y Configuración de Kong Gateway
+
+### Descripción
+
+[Kong Gateway](https://konghq.com/kong) es un API Gateway de alto rendimiento que permite administrar, asegurar y escalar servicios API. En este caso, se configurará **sin base de datos** utilizando archivos de configuración declarativa.
+
+
+### Configuración con Docker
+
+#### 1. Crear el archivo `docker-compose.yml`
+
+Crea un archivo `docker-compose.yml` y agrega la siguiente configuración:
+
+```yaml
+version: '3.8'
+
+services:
+  kong:
+    image: kong:3.0
+    container_name: kong
+    restart: always
+    environment:
+      KONG_DATABASE: "off"  # Modo sin base de datos
+      KONG_DECLARATIVE_CONFIG: "/usr/local/kong/declarative/kong.yml"
+      KONG_PROXY_LISTEN: "0.0.0.0:8000"
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+    volumes:
+      - ./kong/kong.yml:/usr/local/kong/declarative/kong.yml
+    networks:
+      - kong_network
+    ports:
+      - "8000:8000"  # Puerto del proxy
+      - "8001:8001"  # Puerto del administrador
+
+networks:
+  kong_network:
+    driver: bridge
+
+
+#### 1. Crear el archivo `kong.yml` y agrega la siguiente configuración:
+
+```yaml
+_format_version: "3.0"
+
+services:
+  - name: mi-servicio
+    url: http://mockbin.org/request
+    routes:
+      - name: mi-ruta
+        paths:
+          - /mi-ruta
+
+---
+
 📌 ¡Contribuye al proyecto y mejora la implementación de API Gateways en entornos
