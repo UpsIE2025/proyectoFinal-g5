@@ -73,7 +73,7 @@ export default function LoginForm() {
             type="submit"
             disabled={!isValid || isSubmitting}
           >
-            Registrar Usuario
+            Iniciar Sesión
           </LoadingButton>
         </Form>
       )}

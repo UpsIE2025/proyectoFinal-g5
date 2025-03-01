@@ -81,7 +81,7 @@ export default  function RegisterForm(){
                         type="submit"
                         disabled={!isValid || isSubmitting}
                     >
-                        Ingresar
+                        Registrar Usuario
                     </LoadingButton>
                 </Form>
             )}
