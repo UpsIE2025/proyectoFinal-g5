@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package user;
+
+// Definimos un mensaje de solicitud para crear un usuario
+message UserRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+// Definimos el mensaje de respuesta que devolverá el servicio
+message UserResponse {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string createdAt = 4;
+}
+
+// Servicio que expone operaciones relacionadas con los usuarios
+service UserService {
+  rpc CreateUser(UserRequest) returns (UserResponse);
+  rpc GetUserByEmail(UserRequest) returns (UserResponse);
+}
