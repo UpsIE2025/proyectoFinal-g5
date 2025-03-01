@@ -12,6 +12,7 @@ import {RegisterServiceGraph} from "@/services/registerGraph.services";
 export default  function RegisterForm(){
     const router = useRouter();
     const handleRegister = async (values: {email: string; password: string, name: string}) => {
+        console.log('graphql1')
         await RegisterServiceGraph
             .getInstance()
             .registerUser(values).then(() => {
@@ -27,6 +28,7 @@ export default  function RegisterForm(){
             onSubmit={async (values, { setSubmitting }) => {
                 try {
                     await handleRegister(values);
+
                 } finally {
                     setSubmitting(false);
                 }
@@ -78,7 +80,7 @@ export default  function RegisterForm(){
                         size="large"
                         fullWidth
                         type="submit"
-                        disabled={!isValid || isSubmitting}
+                        //disabled={!isValid || isSubmitting}
                     >
                         Registrar Usuario
                     </LoadingButton>

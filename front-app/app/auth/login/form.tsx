@@ -1,7 +1,6 @@
 'use client'
 import CustomField from '@/components/form/custom-field';
 import CustomFormLabel from '@/components/form/custom-form-label';
-import validation from '@/validations/login';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoadingButton } from '@mui/lab';
 import { Box } from '@mui/material';
@@ -38,7 +37,7 @@ export default function LoginForm() {
         }
       }}
     >
-      {({values, errors, touched, handleChange, handleBlur,handleSubmit}) => (
+      {({values, touched, handleChange, handleBlur,handleSubmit}) => (
         <Form>
           <Box>
             <CustomFormLabel htmlFor="email">Email</CustomFormLabel>
