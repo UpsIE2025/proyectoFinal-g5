@@ -34,7 +34,12 @@ _(Detalles sobre el frontend, tecnologías utilizadas, framework, etc.)_
 
 ### Base de Datos
 
-_(Especificar tipo de base de datos, versión, modelo de datos, etc.)_
+Para persistir la información se está usando como base de datos *** PostgreSQL *** que es un sistema de gestión de bases de datos relacional y orientado a objetos de código abierto. Es conocido por su robustez, escalabilidad y cumplimiento con el estándar SQL. Soporta transacciones ACID, extensibilidad mediante funciones y tipos de datos personalizados, replicación, indexación avanzada y JSON para almacenamiento semiestructurado. Es utilizado en aplicaciones empresariales, analíticas y web por su alto rendimiento y flexibilidad.
+
+La estructura de la base de datos es la siguiente:
+
+![Consumer Kafka](./images/EstructureBdd.jpeg)
+
 
 ### gRPC
 
