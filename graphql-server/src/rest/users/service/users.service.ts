@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserInput } from '../../../module/users/dto/create-user.input';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { CreateUserInput } from '../../../module/users/dto/user/create-user.input';
 import { HttpService } from '@nestjs/axios';
-import { AxiosError } from 'axios';
-import { catchError, firstValueFrom } from 'rxjs';
+import { UserLogin } from 'src/module/users/dto/user-login/user-login';
+import { AccessToken } from 'src/module/users/dto/access-token/access-token';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -21,13 +22,26 @@ export class UsersService {
     }
   }
 
-  async login(createUserInput: CreateUserInput): Promise<boolean> {
+  async login(createUserInput: UserLogin): Promise<AccessToken> {
     try {
-      await firstValueFrom(this.httpService.post(this.baseUrl + '/login', createUserInput));
-      return true;
+      const { data } = await firstValueFrom(this.httpService.post(this.baseUrl + '/login', createUserInput));
 
+      return data;
     } catch (error) {
-      return false;
+
+      if (error.response) {
+        throw new HttpException(
+          `Error en el login: ${error.response.data.message || 'Unknown error'}`,
+          error.response.status || HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      } else if (error.request) {
+        throw new HttpException(
+          'No se pudo conectar al servidor de login.',
+          HttpStatus.SERVICE_UNAVAILABLE,
+        );
+      } else {
+        throw new HttpException('Error inesperado al procesar la solicitud de login.', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
     }
   }
 }
