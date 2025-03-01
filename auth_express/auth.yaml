@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Microservicio de Autenticación
+  version: 1.0.0
+  description: API para gestionar registro y autenticación  de usuarios con Auth0 y Express
+servers:
+  - url: 'http://localhost:3001'
+paths:
+  /register:
+    post:
+      summary: Registrar un nuevo usuario
+      description: Registra un nuevo usuario en Auth0 usando las credenciales proporcionadas.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - name
+              properties:
+                email:
+                  type: string
+                  example: cristian31patricio@gmail.com
+                password:
+                  type: string
+                  example: password123
+                name:
+                  type: string
+                  example: Cristian Choto
+      responses:
+        '200':
+          description: Usuario registrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created_at:
+                    type: string
+                    example: "2025-03-01T03:04:30.260Z"
+                  email:
+                    type: string
+                    example: "cristian31patricio@gmail.com"
+                  email_verified:
+                    type: boolean
+                    example: false
+                  identities:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        connection:
+                          type: string
+                          example: "Username-Password-Authentication"
+                        user_id:
+                          type: string
+                          example: "67c2793ea4e21c4b3b183e99"
+                        provider:
+                          type: string
+                          example: "auth0"
+                        isSocial:
+                          type: boolean
+                          example: false
+                  name:
+                    type: string
+                    example: "Cristian Choto"
+                  nickname:
+                    type: string
+                    example: "cristian31patricio"
+                  picture:
+                    type: string
+                    example: "https://s.gravatar.com/avatar/e079726c0a8824d262b7549e10f1ef62?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fcc.png"
+                  updated_at:
+                    type: string
+                    example: "2025-03-01T03:04:30.260Z"
+                  user_id:
+                    type: string
+                    example: "auth0|67c2793ea4e21c4b3b183e99"
+        '400':
+          description: Error al registrar el usuario
+  /login:
+    post:
+      summary: Iniciar sesión
+      description: Inicia sesión usando las credenciales del usuario y devuelve un token de acceso.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: cristian31patricio@gmail.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        '200':
+          description: Token de acceso generado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVsUnVkREF6WHdma2Rua3hHWXhSeSJ9..."
+                  id_token:
+                    type: string
+                    example: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVsUnVkREF6WHdma2Rua3hHWXhSeSJ9..."
+                  scope:
+                    type: string
+                    example: "openid profile email read:current_user update ..."
+                  expires_in:
+                    type: integer
+                    example: 586400
+                  token_type:
+                    type: string
+                    example: "Bearer"
+        '400':
+          description: Error en el inicio de sesión

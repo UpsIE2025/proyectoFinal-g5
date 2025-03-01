@@ -46,3 +46,100 @@
 
 ---
 
+# Integración de gRPC en Aplicaciones Spring Boot
+
+Este documento describe el proceso de integración de gRPC en aplicaciones Spring Boot, incluyendo la configuración de dependencias, la creación de archivos de definición de servicio, y más.
+
+## 1. Agregar Dependencias
+
+Se agregan las dependencias que nos ayudan con la integración de gRPC en aplicaciones Spring Boot, permitir manejar conexiones, protocolos y el transporte de datos. Adicionalmente, se agrega el controlador JDBC para PostgreSQL.
+
+```groovy
+implementation 'net.devh:grpc-spring-boot-starter:2.15.0.RELEASE'
+implementation 'io.grpc:grpc-netty-shaded:1.58.0'
+implementation 'io.grpc:grpc-census:1.58.0'
+implementation 'org.postgresql:postgresql:42.7.2'
+```
+
+## 2. Crear el Archivo user.proto
+Se crea el archivo user.proto en el que se configura el message request, el message response y el servicio que se va a ejecutar con los métodos a utilizar.
+
+```protobuf
+service UserService {
+    rpc CreateUser(UserRequest) returns (UserResponse);
+    rpc FindUserByUserName (UserNameRequest) returns (UserResponse);
+}
+```
+
+## 3. Modificar el Archivo application.yml
+Se modifica el archivo application.yml y dentro del mismo se configura la conexión a la base de datos y el puerto en el que va a escuchar el servidor gRPC.
+
+```yml
+grpc:
+  server:
+    port: 9091
+```
+
+## 4. Crear la Entidad AppUser
+Se crea la entidad AppUser para realizar la persistencia de la información que se envíe desde el cliente, manejando los siguientes datos:
+
+```java
+private int id;
+private String name;
+private String lastName;
+private String email;
+private String userName;
+private String password;
+private LocalDateTime createdAt;
+private LocalDateTime updatedAt;
+private LocalDateTime deleteAt;
+```
+
+## 5. Crear la Interfaz UserRepository
+Se crea la interfaz UserRepository, en la que JPA ya nos ayuda con los métodos básicos para persistir en la base de datos, y también se pueden crear métodos personalizados, como por ejemplo el de búsqueda por nombre de usuario.
+
+```java
+public interface UserRepository extends JpaRepository<AppUser, Long> {
+    Optional<AppUser> findByUserName(String userName);
+}
+```
+
+## 6. Configuración del Servidor gRPC
+Se realiza la configuración del servidor gRPC donde se usa la anotación @GrpcService para que Spring Boot reconozca la clase como un componente de gRPC y escuche las solicitudes entrantes en el puerto que se especificó en el application.yml. Al extender de UserServiceGrpc.UserServiceImplBase, se indica que es una implementación del servicio gRPC definido en el archivo user.proto.
+
+```java
+@GrpcService
+public class GrpcServer extends UserServiceGrpc.UserServiceImplBase {
+    // Implementación de métodos aquí
+}
+```
+
+## 7. Crear la Imagen del Proyecto gRPC
+Para crear la imagen del proyecto gRPC, se debe ejecutar a la altura del Dockerfile el siguiente comando:
+
+```bash
+docker build -t grpc:latest .
+```
+
+## 8. Realizar Pruebas
+Se pueden realizar pruebas desde Postman o BloomRPC; en ambos se debe cargar el archivo user.proto para obtener los métodos que se pueden utilizar.
+
+### Método CreateUser
+
+```json
+{
+  "name": "Lenin",
+  "lastName": "Changotasig",
+  "email": "lx@hotmail.com",
+  "userName": "xaviz",
+  "password": "ts1234"
+}
+```
+
+### Método FindUserByUserName
+
+```json
+{
+  "userName": "xaviz"
+}
+```

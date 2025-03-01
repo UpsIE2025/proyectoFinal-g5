@@ -27,18 +27,17 @@ _(Detalles sobre el frontend, tecnologías utilizadas, framework, etc.)_
 #### GraphQL:
 
 - **Tecnología:** NestJs
-- **Versión:**
+- **Versión:** 16.10.0
+- **Apollo Server:** 3.13.0
 - **Puerto:** 4000
 
 ### Base de Datos
 
-#### MariaDB
+Para persistir la información se está usando como base de datos **_ PostgreSQL _** que es un sistema de gestión de bases de datos relacional y orientado a objetos de código abierto. Es conocido por su robustez, escalabilidad y cumplimiento con el estándar SQL. Soporta transacciones ACID, extensibilidad mediante funciones y tipos de datos personalizados, replicación, indexación avanzada y JSON para almacenamiento semiestructurado. Es utilizado en aplicaciones empresariales, analíticas y web por su alto rendimiento y flexibilidad.
 
-- **Versión:**
+La estructura de la base de datos es la siguiente:
 
-#### Postgresql
-
-- **Versión:**
+![Consumer Kafka](./images/EstructureBdd.jpeg)
 
 ### gRPC
 
