@@ -1,12 +1,10 @@
-# proyectoFinal-g5
+# Proyecto Final - Grupo 5
 
-## Proyecto Final - Grupo 5
-
-### Caso de Uso: "Nombre del Aplicativo"
+## Registro de usuario de un Wedding Planner
 
 ## Flujo de Negocio
 
-_(Describir el flujo de negocio de la aplicación)_
+El sistema realizará el logueo de un usuario, si el cliente no tiene un usuario se creara uno y posteriormente se enviara esa información a traves de graphql el cual enrutará el mensaje para dos distintos microservicios un REST(Producer) y un gRPC......
 
 ## Arquitectura
 
@@ -28,16 +26,25 @@ _(Detalles sobre el frontend, tecnologías utilizadas, framework, etc.)_
 
 #### GraphQL:
 
-- **Versión:** _(indicar versión)_
+- **Tecnología:** NestJs
+- **Versión:**
 - **Puerto:** 4000
 
 ### Base de Datos
 
-_(Especificar tipo de base de datos, versión, modelo de datos, etc.)_
+#### MariaDB
+
+- **Versión:**
+
+#### Postgresql
+
+- **Versión:**
 
 ### gRPC
 
-_(Detalles sobre la implementación de gRPC, servicios expuestos, etc.)_
+- **Tecnología:** Spring
+- **version:** 3.4.3
+- **puerto:** 9091
 
 ### CDC (Change Data Capture)
 
@@ -47,15 +54,11 @@ _(Explicar cómo se maneja el CDC en el sistema)_
 
 #### Auth0
 
-_(Detalles sobre la configuración y uso de Auth0 en el proyecto)_
-
-## APIs
-
-_(Listar y describir las APIs implementadas)_
+- **Tecnología:** Express
+- **Versión:** 4.21.2
+- **Puerto:** 3000
 
 ## Configuración y Despliegue
-
-_(Instrucciones sobre cómo configurar y desplegar el proyecto)_
 
 ### 📌 Requisitos Previos
 
