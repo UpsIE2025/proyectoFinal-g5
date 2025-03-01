@@ -75,7 +75,7 @@ export default function Login() {
               </Box>
               <Stack>
                 <Box>
-                  <LoginForm submitForm={submitForm} />
+                  <LoginForm />
                 </Box>
               </Stack>
             </Card>
