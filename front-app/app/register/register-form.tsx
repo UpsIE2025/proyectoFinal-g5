@@ -9,7 +9,6 @@ import {LoadingButton} from "@mui/lab";
 import { useRouter } from 'next/navigation';
 import {RegisterService} from "@/services/register.service";
 
-
 export default  function RegisterForm(){
     const router = useRouter();
     const handleRegister = async (values: {email: string; password: string, name: string}) => {
@@ -49,10 +48,10 @@ export default  function RegisterForm(){
                         />
                     </Box>
                     <Box>
-                        <CustomFormLabel htmlFor="username">Email</CustomFormLabel>
+                        <CustomFormLabel htmlFor="email">Email</CustomFormLabel>
                         <CustomField
-                            id="username"
-                            name="username"
+                            id="email"
+                            name="email"
                             value={values.email}
                             type="text"
                             placeholder="Ingresa tu correo electrónico"

@@ -29,22 +29,22 @@ export default function LoginForm() {
   return (
     <Formik
       initialValues={{email:'',password:''}}
-      validationSchema={validation}
+      //validationSchema={validation}
       onSubmit={async (values, { setSubmitting }) => {
         try {
           await handleLogin(values);
         } finally {
-          setSubmitting(false);
+
         }
       }}
     >
-      {({values, errors, touched, handleChange, handleBlur,handleSubmit, isValid, isSubmitting}) => (
+      {({values, errors, touched, handleChange, handleBlur,handleSubmit}) => (
         <Form>
           <Box>
-            <CustomFormLabel htmlFor="username">Email</CustomFormLabel>
+            <CustomFormLabel htmlFor="email">Email</CustomFormLabel>
             <CustomField
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               value={values.email}
               type="text"
               placeholder="Ingresa tu correo electrónico"
@@ -71,7 +71,7 @@ export default function LoginForm() {
             size="large"
             fullWidth
             type="submit"
-            disabled={!isValid || isSubmitting}
+            //disabled={!isValid || isSubmitting}
           >
             Iniciar Sesión
           </LoadingButton>
