@@ -131,7 +131,26 @@ services:
       - kafka
     networks:
       - integrations-network
-    
+  cdc:
+    build:
+      context: change-data-capture
+    container_name: cdc
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=IntegracionesEmp
+      - DB_NAME=users
+      - PORT=3002
+      - KAFKA_HOST=kafka
+      - KAFKA_PORT=9092
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mariadb
+    networks:
+      - integrations-network
 
 networks:
   integrations-network:
