@@ -25,6 +25,7 @@
     "axios": "^1.8.1",
     "date-fns": "^2.29.3",
     "formik": "^2.4.6",
+    "graphql-request": "^7.1.2",
     "lodash": "^4.17.21",
     "next": "14.2.4",
     "react": "^18",

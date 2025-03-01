@@ -3,7 +3,6 @@ import Logo from "@/components/logo";
 import {Box, Card, Grid, Stack} from "@mui/material";
 import RegisterForm from "@/app/register/register-form";
 
-
 export default function Register(){
 
     return(

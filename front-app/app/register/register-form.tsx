@@ -7,18 +7,18 @@ import CustomField from "@/components/form/custom-field";
 import {faUser} from "@fortawesome/free-solid-svg-icons";
 import {LoadingButton} from "@mui/lab";
 import { useRouter } from 'next/navigation';
-import {RegisterService} from "@/services/register.service";
+import {RegisterServiceGraph} from "@/services/registerGraph.services";
 
 export default  function RegisterForm(){
     const router = useRouter();
     const handleRegister = async (values: {email: string; password: string, name: string}) => {
-        await RegisterService
+        await RegisterServiceGraph
             .getInstance()
             .registerUser(values).then(() => {
                 router.push('/')
             }).catch(error => {
                 router.push('/register')
-            })
+            });
     }
     return (
         <Formik
