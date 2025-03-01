@@ -1,3 +1,4 @@
+'use client'
 import CustomField from '@/components/form/custom-field';
 import CustomFormLabel from '@/components/form/custom-form-label';
 import validation from '@/validations/login';
@@ -6,15 +7,19 @@ import { LoadingButton } from '@mui/lab';
 import { Box } from '@mui/material';
 import { Form, Formik, FormikProps } from 'formik';
 import {LoginService} from "@/services/login.service";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { setAccessToken } from '@/redux/tokenSlice';
+import { useDispatch } from 'react-redux';
 
 export default function LoginForm() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const handleLogin = async (values: {email: string; password: string}) => {
     await LoginService
         .getInstance()
-        .loginUser(values).then(() => {
+        .loginUser(values).then((response) => {
           router.push('/wedding/dashboard');
+          dispatch(setAccessToken(response.data.access_token))
         }).catch(error => {
           router.push('/');
         })
@@ -68,7 +73,7 @@ export default function LoginForm() {
             type="submit"
             disabled={!isValid || isSubmitting}
           >
-            Ingresar
+            Registrar Usuario
           </LoadingButton>
         </Form>
       )}
