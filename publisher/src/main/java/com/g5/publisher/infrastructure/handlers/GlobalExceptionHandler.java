@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
         List<ErrorDetail> errorDetails = new ArrayList<>();
         ex.getErrors().forEach((key, detail) -> {
             ErrorDetail errorDetail = new ErrorDetail();
-            errorDetail.setMessage(key + " " + detail);
+            errorDetail.setUser(key + " " + detail);
             errorDetails.add(errorDetail);
         });
         error.setErrors(errorDetails);

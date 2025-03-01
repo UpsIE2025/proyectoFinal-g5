@@ -14,7 +14,14 @@ El sistema realizará el logueo de un usuario, si el cliente no tiene un usuario
 
 #### Wedding Planner
 
-_(Detalles sobre el frontend, tecnologías utilizadas, framework, etc.)_
+Se esta usando *** NextJS ***, que es un framework de React optimizado para rendimiento y SEO.
+
+#### Tecnologías utilizadas
+
+*** React ***: Next.js se basa en React, por lo que puedes usar Hooks, Context API y componentes reutilizables.
+*** Tailwind CSS o CSS Modules ***: Puedes elegir entre Tailwind CSS para estilos rápidos o CSS Modules para mantener estilos aislados.
+*** State Management ***: Dependiendo de la complejidad, puedes usar Zustand, Redux, Recoil o Context API.
+*** Autenticación ***: Para la autenticación se está usando Auth0.
 
 ### API Gateway + GraphQL
 

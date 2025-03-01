@@ -1,6 +1,71 @@
 version: '3.8'
 
 services:
+  zookeeper:
+    container_name: zookeeper
+    image: docker.io/bitnami/zookeeper:3.7
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - integrations-network
+  kafka:
+    container_name: kafka
+    image: docker.io/bitnami/kafka:2
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNALPLAINTEXT://:29092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNALPLAINTEXT://localhost:29092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,EXTERNALPLAINTEXT:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=EXTERNALPLAINTEXT
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+    networks:
+      - integrations-network
+    volumes:
+      - ./kafka:/tmp/broker-metadata
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    depends_on:
+      - kafka
+    ports:
+      - "9000:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    networks:
+      - integrations-network
+  postgres:
+    container_name: postgresdb
+    image: postgres:11
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: users
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432"
+    command: [ "postgres", "-c", "wal_level=logical", "-c", "max_wal_senders=1" , "-c", "max_replication_slots=1" ]
+    restart: unless-stopped
+    networks:
+      - integrations-network
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: IntegracionesEmp
+      MYSQL_DATABASE: users
+    ports:
+      - "3306:3306"
+    networks:
+      - integrations-network
   kong:
     image: kong:3.0
     container_name: kong
@@ -13,23 +78,61 @@ services:
     volumes:
       - ./kong/kong.yml:/usr/local/kong/declarative/kong.yml
     networks:
-      - kong_network
+      - integrations-network
     ports:
-      - "8000:8000"  # Puerto del proxy
-      - "8001:8001"  # Puerto del administrador
+      - "8000:8000"
+      - "8001:8001"
+  auth-service:
+    build:
+      context: auth_express
+    container_name: auth-service
+    ports:
+      - "3001:3001"
     depends_on:
-      - kong-api 
-      
-  graphql-server:
-    build: ./graphql-server
-    container_name: graphql-server
+      - kafka
     networks:
-      - kong_network
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - integrations-network
+  grpc-service:
+    build:
+      context: grpc_server
+    container_name: grpc-service
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_NAME=users
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
-      - "4000:4000"
+      - "9091:9091"
+    depends_on:
+      - postgres
+    networks:
+      - integrations-network
+  front-app:
+    build:
+      context: front-app
+    container_name: front-app
+    ports:
+      - "3000:80"
+    networks:
+      - integrations-network
+  debezium:
+    container_name: debezium
+    image: debezium/connect:1.9
+    environment:
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: my-connect-configs
+      OFFSET_STORAGE_TOPIC: my-connect-offsets
+      BOOTSTRAP_SERVERS: kafka:9092
+      ADVERTISED_HOST_NAME: debezium
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka
+    networks:
+      - integrations-network
+    
 
 networks:
-  kong_network:
+  integrations-network:
      driver: bridge

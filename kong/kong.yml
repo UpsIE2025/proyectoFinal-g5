@@ -3,7 +3,6 @@ _format_version: "3.0"
 services:
   - name: graphql-server
     url: http://graphql-server:4000
-    #url: http://host.docker.internal:8081
     routes:
       - name: graphql-server-route
         paths:
