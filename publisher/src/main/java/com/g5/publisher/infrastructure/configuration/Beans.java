@@ -1,9 +1,9 @@
 package com.g5.publisher.infrastructure.configuration;
 
-import com.g5.publisher.application.PublishMessageImpl;
-import com.g5.publisher.domain.ports.in.PublishMessage;
-import com.g5.publisher.domain.ports.out.MessagePublisher;
-import com.g5.publisher.infrastructure.kafka.MessagePublisherImpl;
+import com.g5.publisher.application.PublishUserImpl;
+import com.g5.publisher.domain.ports.in.PublishUser;
+import com.g5.publisher.domain.ports.out.UserPublisher;
+import com.g5.publisher.infrastructure.kafka.UserPublisherImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,12 +20,12 @@ public class Beans {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Bean
-    public PublishMessage publishMessage() {
-        return new PublishMessageImpl(messagePublisher());
+    public PublishUser publishUser() {
+        return new PublishUserImpl(userPublisher());
     }
 
     @Bean
-    public MessagePublisher messagePublisher() {
-        return new MessagePublisherImpl(kafkaTemplate, pointToPointTopic);
+    public UserPublisher userPublisher() {
+        return new UserPublisherImpl(kafkaTemplate, pointToPointTopic);
     }
 }

@@ -8,8 +8,8 @@ import java.util.Map;
 public class InvalidDataException extends RuntimeException {
     private final Map<String, String> errors;
 
-    public InvalidDataException(String message, Map<String, String> errors) {
-        super(message);
+    public InvalidDataException(String user, Map<String, String> errors) {
+        super(user);
         this.errors = errors;
     }
 }
