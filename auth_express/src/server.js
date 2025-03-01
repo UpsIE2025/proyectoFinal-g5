@@ -4,6 +4,9 @@ const { auth, requiresAuth } = require('express-openid-connect');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const axios = require("axios");
+const { expressjwt: jwtMiddleware } = require('express-jwt');
+const jwks = require('jwks-rsa');
+
 
 const app = express();
 app.use(cors());
@@ -25,6 +28,18 @@ const config = {
   },
 };
 
+const checkJwt = jwtMiddleware({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+  }),
+  audience: process.env.AUTH0_AUDIENCE,
+  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+  algorithms: ['RS256']
+});
+
 async function getManagementToken() {
     const response = await axios.post(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
       client_id: process.env.AUTH0_CLIENT_ID,
@@ -37,7 +52,6 @@ async function getManagementToken() {
 }
 
 app.use(auth(config));
-
 
 app.get("/profile", async (req, res) => {
     try {
@@ -113,6 +127,34 @@ app.post("/login", async (req, res) => {
     } catch (error) {
       res.status(400).json({ error: error.response.data });
     }
+});
+
+
+function checkTokenExpiration(req, res, next) {
+  const token = req.headers.authorization?.split(' ')[1]; 
+  if (!token) {
+    return res.status(401).json({ error: "Token no proporcionado" });
+  }
+
+  try {
+    const decodedToken = jwt.decode(token); 
+    if (!decodedToken || !decodedToken.exp) {
+      return res.status(401).json({ error: "Token inválido" });
+    }
+
+    const now = Math.floor(Date.now() / 1000); 
+    if (decodedToken.exp < now) {
+      return res.status(401).json({ error: "Token expirado" });
+    }
+
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: "Error al procesar el token" });
+  }
+}
+
+app.get('/secure', checkJwt, checkTokenExpiration, (req, res) => {
+  res.json({ message: "Acceso permitido", user: req.auth });
 });
 
 const PORT = process.env.PORT || 3001;
