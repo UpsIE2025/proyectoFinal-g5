@@ -3,18 +3,20 @@ import CustomField from '@/components/form/custom-field';
 import CustomFormLabel from '@/components/form/custom-form-label';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoadingButton } from '@mui/lab';
-import { Box } from '@mui/material';
+import { Box, Link } from '@mui/material';
 import { Form, Formik, FormikProps } from 'formik';
 import {LoginService} from "@/services/login.service";
 import { useRouter } from 'next/navigation';
 import { setAccessToken } from '@/redux/tokenSlice';
 import { useDispatch } from 'react-redux';
+import {loginValidationSchema} from "@/validations/login";
+import {LoginServiceGraph} from "@/services/loginGraph.service";
 
 export default function LoginForm() {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleLogin = async (values: {email: string; password: string}) => {
-    await LoginService
+    await LoginServiceGraph
         .getInstance()
         .loginUser(values).then((response) => {
           router.push('/wedding/dashboard');
@@ -23,21 +25,19 @@ export default function LoginForm() {
           router.push('/');
         })
   }
-
-
   return (
     <Formik
       initialValues={{email:'',password:''}}
-      //validationSchema={validation}
+      validationSchema={loginValidationSchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {
           await handleLogin(values);
         } finally {
-
+            setSubmitting(false)
         }
       }}
     >
-      {({values, touched, handleChange, handleBlur,handleSubmit}) => (
+      {({values, isValid, isSubmitting}) => (
         <Form>
           <Box>
             <CustomFormLabel htmlFor="email">Email</CustomFormLabel>
@@ -70,10 +70,13 @@ export default function LoginForm() {
             size="large"
             fullWidth
             type="submit"
-            //disabled={!isValid || isSubmitting}
+            disabled={!isValid || isSubmitting}
           >
             Iniciar Sesión
           </LoadingButton>
+            <div className={"pt-2 justify-center"}>
+                <p>¿No tienes cuenta?  <Link href={'/register'}>Crear cuenta</Link> </p>
+            </div>
         </Form>
       )}
     </Formik>

@@ -1,4 +1,4 @@
-
+import {RegistrationValues} from "@/types/login.type";
 
 export class RegisterServiceGraph{
     private static instance: RegisterServiceGraph;
@@ -12,31 +12,28 @@ export class RegisterServiceGraph{
         return RegisterServiceGraph.instance;
     }
 
-    public async registerUser(values: { email: string; password: string; name: string }) {
+    public async registerUser(values: RegistrationValues) {
         const mutation = `
-      mutation RegisterUser($name: String!, $email: String!, $password: String!) {
-        registerUser(name: $name, email: $email, password: $password) {
-          id
+      mutation create($name: String!, $lastName: String!, $userName: String!, $email: String!, $password: String!) {
+        create(name: $name, lastName: $lastName, userName: $userName ,email: $email, password: $password) {
           name
+          lastName
+          userName
           email
+          password
         }
       }
     `;
-
-        const variables = { ...values };
-
         const response = await fetch('http://localhost:8000', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: mutation, variables }),
+            body: JSON.stringify({ query: mutation, values }),
         });
-
         const data = await response.json();
 
         if (!response.ok) {
             throw new Error(data.errors?.[0]?.message || 'Error al registrar usuario');
         }
-
         return data.data.registerUser;
     }
 }

@@ -12,7 +12,7 @@ const types: any = {
 const Logo = ({ type = 'header' }: { type: string }) => {
   return (
     <img
-      src={'/images/logo.png'}
+      src={'/images/bank.png'}
       alt="logo"
       width={types[type].width}
       height={types[type].height}
