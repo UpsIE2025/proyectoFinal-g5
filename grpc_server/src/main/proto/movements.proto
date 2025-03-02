@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.g5.grpc.mo";
+option objc_class_prefix = "EX";
+
+package movements;
+
+message MovementsRequest {
+    string accountId = 1;
+    string amount = 2;
+    string description = 3;
+    string accountDest = 4;
+    string createdAt = 5;
+}
+
+message MovementsAccountRequest {
+    string account = 1;
+}
+
+message MovementsListResponse {
+    repeated MovementsRequest movements = 1;
+}
+
+message IdMovementResponse {
+    string id = 1;
+}
+
+message MovementsResponse {
+    string accountId = 1;
+    string amount = 2;
+    string type = 3;
+    string description = 4;
+    string createdAt = 5;
+}
+
+service MovementsService {
+    rpc CreateMovements(MovementsRequest) returns (IdMovementResponse);
+    rpc SearchMovementsByNameByAccountNum (MovementsAccountRequest) returns (MovementsListResponse);
+}

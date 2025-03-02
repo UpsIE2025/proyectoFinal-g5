@@ -1,19 +1,23 @@
-package com.g5.grpc.service;
+package com.g5.grpc.service_rpc;
 
 import com.g5.grpc.*;
 import com.g5.grpc.model.AppUser;
+import com.g5.grpc.service.AccountService;
+import com.g5.grpc.service.UserService;
+import com.g5.grpc.util.GenerateAccount;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Optional;
 
 @GrpcService
-public class GrpcServer extends UserServiceGrpc.UserServiceImplBase {
-
+public class GrpcUserServer extends UserServiceGrpc.UserServiceImplBase {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AccountService accountService;
 
     @Override
     public void createUser(UserRequest request, StreamObserver<UserResponse> responseObserver) {
@@ -27,6 +31,8 @@ public class GrpcServer extends UserServiceGrpc.UserServiceImplBase {
             }
             AppUser createdUser = userService.createUser(request.getName(), request.getLastName(),
                     request.getEmail(), request.getUserName(), request.getPassword());
+            String numCta = GenerateAccount.generateCodCta();
+            accountService.createAccount(numCta, createdUser.getId(), 0.00);
             UserResponse response = UserResponse.newBuilder()
                     .setId(String.valueOf(createdUser.getId()))
                     .setName(createdUser.getName())

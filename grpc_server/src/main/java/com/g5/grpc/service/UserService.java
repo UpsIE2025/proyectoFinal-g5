@@ -2,6 +2,7 @@ package com.g5.grpc.service;
 
 import com.g5.grpc.model.AppUser;
 import com.g5.grpc.repository.UserRepository;
+import com.g5.grpc.service_rpc.GrpcAccountServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
