@@ -18,8 +18,11 @@ const BCrumb = [
     {
         to: '/wedding/customers/detail',
         title: 'Cliente',
-    },
-];
+    },{
+        to: '/information/account',
+        title: 'Cuenta',
+    }
+]
 
 export default function CustomerDetailPage() {
     return (

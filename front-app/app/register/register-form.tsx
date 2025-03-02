@@ -8,10 +8,11 @@ import {LoadingButton} from "@mui/lab";
 import { useRouter } from 'next/navigation';
 import {RegisterServiceGraph} from "@/services/registerGraph.services";
 import {registrationValidationSchema} from "@/validations/login";
+import {initialRegistrationValues, RegistrationValues} from "@/types/login.type"
 
 export default  function RegisterForm(){
     const router = useRouter();
-    const handleRegister = async (values: {email: string; password: string, name: string}) => {
+    const handleRegister = async (values: RegistrationValues) => {
         console.log('graphql1')
         await RegisterServiceGraph
             .getInstance()
@@ -23,7 +24,7 @@ export default  function RegisterForm(){
     }
     return (
         <Formik
-            initialValues={{email:'', password:'', name:''}}
+            initialValues={initialRegistrationValues}
             validationSchema={registrationValidationSchema}
             onSubmit={async (values, { setSubmitting }) => {
                 try {
@@ -42,7 +43,33 @@ export default  function RegisterForm(){
                             name="name"
                             value={values.name}
                             type="text"
-                            placeholder="Ingresa el nombre del usuario"
+                            placeholder="Ingresa tu nombre"
+                            variant="outlined"
+                            icon={faUser}
+                            fullWidth
+                        />
+                    </Box>
+                    <Box>
+                        <CustomFormLabel htmlFor="lastName">Apellido de usuario</CustomFormLabel>
+                        <CustomField
+                            id="lastName"
+                            name="lastName"
+                            value={values.lastName}
+                            type="text"
+                            placeholder="Ingresa tu apellido"
+                            variant="outlined"
+                            icon={faUser}
+                            fullWidth
+                        />
+                    </Box>
+                    <Box>
+                        <CustomFormLabel htmlFor="userName">Nickname</CustomFormLabel>
+                        <CustomField
+                            id="userName"
+                            name="userName"
+                            value={values.userName}
+                            type="text"
+                            placeholder="Ingresa nickName del usuario"
                             variant="outlined"
                             icon={faUser}
                             fullWidth
