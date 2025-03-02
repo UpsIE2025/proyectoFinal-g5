@@ -87,7 +87,7 @@ app.get('/', (req, res) => {
 
 app.post("/register", async (req, res) => {
     try {
-      const { email, password, name } = req.body;
+      const { email, password, userName } = req.body;
   
       const token = await getManagementToken();
       const response = await axios.post(
@@ -95,7 +95,7 @@ app.post("/register", async (req, res) => {
         {
           email,
           password,
-          name,
+          userName,
           connection: "Username-Password-Authentication",
         },
         {
